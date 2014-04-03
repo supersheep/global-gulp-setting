@@ -8,9 +8,7 @@
     "gulp-rename": "^1.2.0",
     "gulp-jshint": "^1.5.2",
     "gulp-minify-css": "^0.3.0",
-    "gulp-ftp": "^0.2.1"
-  },
-  "dependencies": {
-    "gulp-absolute-image": "0.0.0"
+    "gulp-ftp": "^0.2.1",
+    "gulp-absolute-image": "0.0.1"
   }
 }
