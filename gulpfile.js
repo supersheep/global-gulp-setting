@@ -14,10 +14,11 @@ var cwd = process.env.WORKSPACE || process.cwd();
 var pkg = require(path.join(cwd,"./package.json"));
 
 var ftpconfig = eval('(' + fs.readFileSync( path.join(__dirname,'.ftppass'),'utf-8') + ')');
+var jshintrc_path = path.join(__dirname, "/.jshintrc");
 
 gulp.task("scripts", function(){
     gulp.src([".cortex/built/**/*.js","!.cortex/built/**/*.min.js"])
-        .pipe(jshint('/Users/spud/.gulp/.jshintrc'))
+        .pipe(jshint(jshintrc_path))
         .pipe(jshint.reporter('default'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
