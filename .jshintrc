@@ -1,0 +1,3 @@
+{
+    "-W032":true // tolerate unnecessary semicolon
+}
