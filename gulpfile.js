@@ -16,10 +16,15 @@ var pkg = require(path.join(cwd,"./package.json"));
 var ftpconfig = eval('(' + fs.readFileSync( path.join(__dirname,'.ftppass'),'utf-8') + ')');
 var jshintrc_path = path.join(__dirname, "/.jshintrc");
 
-gulp.task("scripts", function(){
-    gulp.src([".cortex/built/**/*.js","!.cortex/built/**/*.min.js"])
+gulp.task("jshint",function(){
+    gulp.src(["**/*.js","!.cortex","!test/tool/**/*","!node_modules/**/*"])
         .pipe(jshint(jshintrc_path))
         .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'))
+})
+
+gulp.task("scripts", function(){
+    gulp.src([".cortex/built/**/*.js","!.cortex/built/**/*.min.js"])
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
         .pipe(gulp.dest('.cortex/built'));

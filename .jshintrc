@@ -1,3 +1,6 @@
 {
-    "-W032":true // tolerate unnecessary semicolon
+    "-W032":true, // tolerate unnecessary semicolon,
+    "-W033":true, // missing semicolon
+    "laxbreak":true, // bad line breaking before ...
+    "expr": true // a && b()
 }
