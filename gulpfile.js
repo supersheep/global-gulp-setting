@@ -17,21 +17,21 @@ var ftpconfig = eval('(' + fs.readFileSync( path.join(__dirname,'.ftppass'),'utf
 var jshintrc_path = path.join(__dirname, "/.jshintrc");
 
 gulp.task("jshint",function(){
-    gulp.src(["**/*.js","!.cortex","!test/tool/**/*","!node_modules/**/*"])
+    return gulp.src(["**/*.js","!.cortex","!test/tool/**/*","!node_modules/**/*"])
         .pipe(jshint(jshintrc_path))
         .pipe(jshint.reporter('default'))
         .pipe(jshint.reporter('fail'))
 })
 
 gulp.task("scripts", function(){
-    gulp.src([".cortex/built/**/*.js","!.cortex/built/**/*.min.js"])
+    return gulp.src([".cortex/built/**/*.js","!.cortex/built/**/*.min.js"])
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
         .pipe(gulp.dest('.cortex/built'));
 });
 
 gulp.task("css",function(){
-    gulp.src(['.cortex/built/**/*.css','!.cortex/built/**/*.min.css'])
+    return gulp.src(['.cortex/built/**/*.css','!.cortex/built/**/*.min.css'])
         .pipe(absoluteimage({
             root_dir: ".cortex/built",
             root_path: util.format("mod/%s/%s",pkg.name,pkg.version),
@@ -43,13 +43,13 @@ gulp.task("css",function(){
 });
 
 gulp.task("image",function(){
-    gulp.src([".cortex/built/**/*.{gif,jpg,png}"])
+    return gulp.src([".cortex/built/**/*.{gif,jpg,png}"])
         .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
         .pipe(gulp.dest('.cortex/built'));
 });
 
 gulp.task("upload",function(){
-    gulp.src('.cortex/built/**/*')
+    return gulp.src('.cortex/built/**/*')
         .pipe(ftp(ftpconfig));
 });
 
