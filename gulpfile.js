@@ -53,4 +53,6 @@ gulp.task("upload",function(){
         .pipe(ftp(ftpconfig));
 });
 
-gulp.task('default', ['scripts','css','image','upload']);
+gulp.task('default', ['scripts','css','image'], function(){
+    gulp.start('upload');
+});
