@@ -34,8 +34,8 @@ gulp.task("css",function(){
     return gulp.src(['.cortex/built/**/*.css','!.cortex/built/**/*.min.css'])
         .pipe(absoluteimage({
             root_dir: ".cortex/built",
-            root_path: util.format("mod/%s/%s",pkg.name,pkg.version),
-            hosts: ["i1.static.dp","i2.static.dp","i3.static.dp"]
+            root_path: "mod",
+            hosts: require("./hosts.json")
         }))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
