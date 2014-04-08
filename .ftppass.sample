@@ -1,5 +1,6 @@
 {
     "host": "website.com",
     "user": "johndoe",
-    "pass": "1234"
+    "pass": "1234",
+    "remotePath": "mod"
 }
