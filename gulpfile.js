@@ -23,26 +23,31 @@ gulp.task("jshint",function(){
         .pipe(jshint.reporter('fail'))
 })
 
-gulp.task("scripts", function(){
+gulp.task("uglify", function(){
     return gulp.src([".cortex/built/**/*.js","!.cortex/built/**/*.min.js"])
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
         .pipe(gulp.dest('.cortex/built'));
 });
 
-gulp.task("css",function(){
+gulp.task("css-image-path",function(){
     return gulp.src(['.cortex/built/**/*.css','!.cortex/built/**/*.min.css'])
         .pipe(absoluteimage({
             root_dir: ".cortex/built",
             root_path: "mod",
             hosts: require("./hosts.json")
         }))
+        .pipe(gulp.dest('.cortex/built'))
+})
+
+gulp.task("cssmin",["css-image-path"],function(){
+    return gulp.src(['.cortex/built/**/*.css','!.cortex/built/**/*.min.css'])
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
         .pipe(gulp.dest('.cortex/built'));
 });
 
-gulp.task("image",function(){
+gulp.task("imagemin",function(){
     return gulp.src([".cortex/built/**/*.{gif,jpg,png}"])
         .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
         .pipe(gulp.dest('.cortex/built'));
@@ -53,6 +58,6 @@ gulp.task("upload",function(){
         .pipe(ftp(ftpconfig));
 });
 
-gulp.task('default', ['scripts','css','image'], function(){
+gulp.task('default', ['uglify','cssmin','imagemin'], function(){
     gulp.start('upload');
 });
