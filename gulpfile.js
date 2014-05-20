@@ -49,7 +49,8 @@ gulp.task("cssmin",["css-image-path"],function(){
 
 gulp.task("imagemin",function(){
     return gulp.src([".cortex/built/**/*.{gif,jpg,png}"])
-        .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+        // .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+        .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
         .pipe(gulp.dest('.cortex/built'));
 });
 
